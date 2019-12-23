@@ -64,10 +64,11 @@ module Body
               }
               conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
         elsif @json[:event][:text].include?("database")
+              showusers = User.all
               body = {
                 :token => ENV['SLACK_BOT_USER_TOKEN'],
                 :channel => @json[:event][:channel],
-                :text  => "#{User.all}"
+                :text  => "#{showusers.name}"
               }
               conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
         else
