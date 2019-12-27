@@ -12,10 +12,6 @@ module Body
         builder.use Faraday::Adapter::NetHttp     # Net/HTTP をアダプターに使う
       end
 
-      p @json[:event][:text]
-      p "<@#{@json[:event][:user]}>"
-      p ENV["SLACK_BOT_USER_TOKEN"]
-
       #送られて来たメッセージが自分へのメンションなのか他人へのメンションなのか全く関係のないものなのかで場合分け
       if @json[:event][:subtype] != "bot_message"
         if @json[:event][:text] =="<@#{@json[:event][:user]}>"#自分の時
@@ -25,7 +21,7 @@ module Body
               :text  => "<@#{@json[:event][:user]}>,your url is not ready"
             }
             conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
-            p body
+
           
         elsif @json[:event][:text].include?("<@")
               body = {
