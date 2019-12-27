@@ -72,16 +72,17 @@ module Body
                    @user.save
                end
 
-
               showusers = User.all
               p "もしもし"
               p showusers.name
-              body = {
-                :token => ENV['SLACK_BOT_USER_TOKEN'],
-                :channel => @json[:event][:channel],
-                :text  => "#{showusers.name}"
-              }
-              conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
+              showusers.each do |showuser|
+                body = {
+                  :token => ENV['SLACK_BOT_USER_TOKEN'],
+                  :channel => @json[:event][:channel],
+                  :text  => "#{showuser.name}"
+                }
+                conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
+              end
         else
             body = {
               :token => ENV['SLACK_BOT_USER_TOKEN'],
