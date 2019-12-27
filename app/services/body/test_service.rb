@@ -60,6 +60,19 @@ module Body
               }
               conn.post '/api/chat.postMessage',body.to_json, {"Content-type" => 'application/json',"Authorization"=>"Bearer #{ENV['SLACK_BOT_USER_TOKEN']}"}
         elsif @json[:event][:text].include?("database")
+
+              response = conn.get do |req|  
+              req.url '/api/users.list'
+              req.params[:token] = ENV['SLACK_BOT_USER_TOKEN']
+              end
+              info = JSON.parse(response&.body)
+              members=info["members"]
+              members.each do |member|
+                  @user=User.new(user_id:member["id"],name:member["name"],url:"https://mates-proile-web.herokuapp.com/users/#{member["name"]}")
+                  @user.save
+              end
+
+
               showusers = User.all
               p "もしもし"
               p showusers.name
