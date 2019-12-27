@@ -62,7 +62,7 @@ module Body
         elsif @json[:event][:text].include?("database")
               showusers = User.all
               p "もしもし"
-              p showusers
+              p showusers.name
               body = {
                 :token => ENV['SLACK_BOT_USER_TOKEN'],
                 :channel => @json[:event][:channel],
