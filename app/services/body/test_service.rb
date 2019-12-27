@@ -68,8 +68,8 @@ module Body
               info = JSON.parse(response&.body)
               members=info["members"]
                members.each do |member|
-              #     @user=User.new(user_id:member["id"],name:member["name"],url:"https://mates-proile-web.herokuapp.com/users/#{member["name"]}")
-              #     @user.save
+                   @user=User.new(user_id:member["id"],name:member["name"],url:"https://mates-proile-web.herokuapp.com/users/#{member["name"]}")
+                   @user.save
                end
 
 
