@@ -1,3 +1,5 @@
-# mates profile
+# What is mates profile?
 
-Ruby on Rails + Slack API
+Slackbot made with Ruby on Rails + Slack API
+
+It regularly post Messages to DM in a workspace and send the replies to web server
